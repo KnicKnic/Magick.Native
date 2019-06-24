@@ -14,10 +14,10 @@ COPY build/wasm/linux/build.ImageMagick.sh /build
 
 RUN cd /ImageMagick/libraries; /build/build.ImageMagick.sh
 
-COPY build/wasm/linux/build.Native.sh /build
+# COPY build/wasm/linux/build.Native.sh /build
 
-COPY src/Native /Native
+# COPY src/Native /Native
 
-RUN cd /Native; /build/build.Native.sh
+# RUN cd /Native; /build/build.Native.sh
 
-COPY build/wasm/linux/copy.Native.sh /build
+# COPY build/wasm/linux/copy.Native.sh /build
