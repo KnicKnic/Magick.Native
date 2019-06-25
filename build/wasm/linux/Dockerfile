@@ -12,10 +12,6 @@ RUN cd /ImageMagick; ./checkout.sh linux
 
 COPY build/wasm/linux/build.ImageMagick.sh /build
 
-COPY build/wasm/linux/build.ImageMagick.no.parent.sh /build
-
-COPY build/wasm/linux/build.ImageMagick.no.parent.sh /build
-
 RUN cd /ImageMagick/libraries; /build/build.ImageMagick.sh
 
 COPY build/wasm/linux/build.Native.sh /build
