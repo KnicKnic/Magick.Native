@@ -125,3 +125,12 @@ buildImageMagick() {
 cd ../ImageMagick
 autoreconf -fiv
 buildImageMagick "Q16-HDRI"
+
+
+#again couldn't figure out options
+export LDFLAGS="-L/ImageMagick/libaries/fontconfig -L/ImageMagick/libaries/freetype -L/ImageMagick/libaries/jpeg -L/ImageMagick/libaries/lcms -L/ImageMagick/libaries/libde265 -L/ImageMagick/libaries/libheif -L/ImageMagick/libaries/libraw -L/ImageMagick/libaries/libxml -L/ImageMagick/libaries/openjpeg -L/ImageMagick/libaries/png -L/ImageMagick/libaries/tiff -L/ImageMagick/libaries/webp -L/ImageMagick/libaries/zlib"
+export CPPFLAGS="-I/ImageMagick/libaries/fontconfig -I/ImageMagick/libaries/freetype -I/ImageMagick/libaries/jpeg -I/ImageMagick/libaries/lcms -I/ImageMagick/libaries/libde265 -I/ImageMagick/libaries/libheif -I/ImageMagick/libaries/libraw -I/ImageMagick/libaries/libxml -I/ImageMagick/libaries/openjpeg -I/ImageMagick/libaries/png -I/ImageMagick/libaries/tiff -I/ImageMagick/libaries/webp -I/ImageMagick/libaries/zlib"
+
+/bin/bash ./libtool --silent --tag=CC --mode=link emcc --bind -s BINARYEN_TRAP_MODE=clamp -s ALLOW_MEMORY_GROWTH=1 $CPPFLAGS $LDFLAGS -o utilities/magick.html utilities/magick.o MagickCore/libMagickCore-7.Q8.la MagickWand/libMagickWand-7.Q8.la
+
+
