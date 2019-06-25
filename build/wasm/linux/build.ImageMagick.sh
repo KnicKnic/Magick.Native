@@ -25,7 +25,7 @@ export SSE_OPTIONS="--disable-sse"
 # $MAKE install CFLAGS="$FLAGS"
 
 # Build libxml
-cd ../libxml
+cd libxml
 autoreconf -fiv
 $CONFIGURE --with-python=no --enable-static --disable-shared $LIBXML_OPTIONS CFLAGS="$FLAGS"
 $MAKE install
