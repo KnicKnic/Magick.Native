@@ -35,4 +35,4 @@ buildNative() {
     cd ..
 }
 
-buildNative "Q8"
+buildNative "Q16-HDRI"

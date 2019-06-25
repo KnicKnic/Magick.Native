@@ -9,4 +9,4 @@ copyNative() {
     cp $quantum/magick-$quantum.wasm $target/magick-$quantum.wasm
 }
 
-copyNative "Q8" $1
+copyNative "Q16-HDRI" $1

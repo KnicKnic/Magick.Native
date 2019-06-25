@@ -72,12 +72,8 @@ clone_date 'libheif' "$commitDate"
 clone_date 'libraw' "$commitDate"
 clone_date 'libxml' "$commitDate"
 clone_date 'openjpeg' "$commitDate"
-clone_date 'png' "$commitDate"
+# clone_date 'png' "$commitDate"
 git clone https://github.com/KnicKnic/libpng.git 'png'
-cd png
-git checkout libpng16
-cd ..
-
 clone_date 'tiff' "$commitDate"
 clone_date 'webp' "$commitDate"
 clone_date 'zlib' "$commitDate"
