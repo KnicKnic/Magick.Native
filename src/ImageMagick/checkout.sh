@@ -65,7 +65,8 @@ echo "Set latest commit date as $commitDate"
 cd ..
 
 clone_date 'freetype' "$commitDate"
-clone_date 'jpeg-turbo' "$commitDate" 'jpeg'
+# clone_date 'jpeg-turbo' "$commitDate" 'jpeg'
+git clone https://github.com/KnicKnic/libjpeg.git 'jpeg'
 clone_date 'lcms' "$commitDate"
 clone_date 'libde265' "$commitDate"
 clone_date 'libheif' "$commitDate"
