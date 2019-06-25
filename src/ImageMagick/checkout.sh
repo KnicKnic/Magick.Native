@@ -64,20 +64,20 @@ declare -r commitDate=`git log -1 --format=%ci`
 echo "Set latest commit date as $commitDate" 
 cd ..
 
-clone_date 'freetype' "$commitDate"
-# clone_date 'jpeg-turbo' "$commitDate" 'jpeg'
-git clone https://github.com/KnicKnic/libjpeg.git 'jpeg'
+# clone_date 'freetype' "$commitDate"
+# # clone_date 'jpeg-turbo' "$commitDate" 'jpeg'
+# git clone https://github.com/KnicKnic/libjpeg.git 'jpeg'
 clone_date 'lcms' "$commitDate"
 clone_date 'libde265' "$commitDate"
 clone_date 'libheif' "$commitDate"
 clone_date 'libraw' "$commitDate"
 clone_date 'libxml' "$commitDate"
 clone_date 'openjpeg' "$commitDate"
-# clone_date 'png' "$commitDate"
-git clone https://github.com/KnicKnic/libpng.git 'png'
+# # clone_date 'png' "$commitDate"
+# git clone https://github.com/KnicKnic/libpng.git 'png'
 clone_date 'tiff' "$commitDate"
 clone_date 'webp' "$commitDate"
-clone_date 'zlib' "$commitDate"
+# clone_date 'zlib' "$commitDate"
 
 if [ "$1" == "macos" ] || [ "$1" == "linux" ]; then
   # Clone fontconfig

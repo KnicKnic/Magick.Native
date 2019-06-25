@@ -2,14 +2,15 @@
 set -e
 
 export PLATFORM="WASM"
-export FLAGS="-O3 --bind -s WASM=1 -s ALLOW_MEMORY_GROWTH=1 -s BINARYEN_TRAP_MODE=clamp"
+export CPPFLAGS="-I/usr/local/include -s USE_ZLIB=1 -s USE_BZIP2=1 -s USE_LIBJPEG=1 -s USE_LIBPNG=1 -s USE_FREETYPE=1"
+
+export LDFLAGS="-L/usr/local/lib"
+export FLAGS="-O3 --bind -s WASM=1 -s ALLOW_MEMORY_GROWTH=1 -s BINARYEN_TRAP_MODE=clamp ${CPPFLAGS} ${LDFLAGS}"
 export STRICT_FLAGS="${FLAGS} -Wall"
 export CONFIGURE="emconfigure ./configure"
 export CMAKE_COMMAND="emconfigure cmake"
 export CMAKE_OPTIONS="-D CMAKE_CXX_COMPILER=em++ -D CMAKE_C_COMPILER=emcc"
 export MAKE="emcmake make"
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib"
 export CONDITIONAL_DISABLE_SHARED="--disable-shared"
 export PKG_PATH="/usr/local/lib/pkgconfig"
 export HEIF_HACK=true
@@ -17,11 +18,11 @@ export LIBXML_OPTIONS=""
 export SIMD_OPTIONS="-DWITH_SIMD=0"
 export SSE_OPTIONS="--disable-sse"
 
-# Build zlib
-cd zlib
-chmod +x ./configure
-$CONFIGURE --static
-$MAKE install CFLAGS="$FLAGS"
+# # Build zlib
+# cd zlib
+# chmod +x ./configure
+# $CONFIGURE --static
+# $MAKE install CFLAGS="$FLAGS"
 
 # Build libxml
 cd ../libxml
@@ -29,32 +30,32 @@ autoreconf -fiv
 $CONFIGURE --with-python=no --enable-static --disable-shared $LIBXML_OPTIONS CFLAGS="$FLAGS"
 $MAKE install
 
-# Build libpng
-cd ../png
-autoreconf -fiv
-$CONFIGURE --disable-mips-msa --disable-arm-neon --disable-powerpc-vsx --disable-shared CFLAGS="$FLAGS"
-$MAKE install
-
-# Build freetype
-cd ../freetype
-./autogen.sh
-$CONFIGURE --disable-shared --without-bzip2 CFLAGS="$FLAGS"
-$MAKE install
-make clean
-mkdir build
-cd build
-$CMAKE_COMMAND .. -DCMAKE_INSTALL_PREFIX=/usr/local -DENABLE_SHARED=off -DCMAKE_DISABLE_FIND_PACKAGE_BZip2=TRUE -DCMAKE_C_FLAGS="$FLAGS"
-$MAKE install
-cd ..
-# # Build libjpeg-turbo
-# cd ../jpeg
-# $CMAKE_COMMAND . -DCMAKE_INSTALL_PREFIX=/usr/local -DENABLE_SHARED=off ${SIMD_OPTIONS} -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="$FLAGS"
+# # Build libpng
+# cd ../png
+# autoreconf -fiv
+# $CONFIGURE --disable-mips-msa --disable-arm-neon --disable-powerpc-vsx --disable-shared CFLAGS="$FLAGS"
 # $MAKE install
-# build libjpeg #due to turbo crashing
-cd ../jpeg
-autoreconf -fiv
-$CONFIGURE ${CONDITIONAL_DISABLE_SHARED} CFLAGS="$FLAGS"
-$MAKE install
+
+# # Build freetype
+# cd ../freetype
+# ./autogen.sh
+# $CONFIGURE --disable-shared --without-bzip2 CFLAGS="$FLAGS"
+# $MAKE install
+# make clean
+# mkdir build
+# cd build
+# $CMAKE_COMMAND .. -DCMAKE_INSTALL_PREFIX=/usr/local -DENABLE_SHARED=off -DCMAKE_DISABLE_FIND_PACKAGE_BZip2=TRUE -DCMAKE_C_FLAGS="$FLAGS"
+# $MAKE install
+# cd ..
+# # # Build libjpeg-turbo
+# # cd ../jpeg
+# # $CMAKE_COMMAND . -DCMAKE_INSTALL_PREFIX=/usr/local -DENABLE_SHARED=off ${SIMD_OPTIONS} -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="$FLAGS"
+# # $MAKE install
+# # build libjpeg #due to turbo crashing
+# cd ../jpeg
+# autoreconf -fiv
+# $CONFIGURE ${CONDITIONAL_DISABLE_SHARED} CFLAGS="$FLAGS"
+# $MAKE install
 
 # Build libtiff
 cd ../tiff
@@ -133,9 +134,9 @@ buildImageMagick "Q16-HDRI"
 
 
 #again couldn't figure out options
-export LDFLAGS="-L/ImageMagick/libaries/fontconfig -L/ImageMagick/libaries/freetype -L/ImageMagick/libaries/jpeg -L/ImageMagick/libaries/lcms -L/ImageMagick/libaries/libde265 -L/ImageMagick/libaries/libheif -L/ImageMagick/libaries/libraw -L/ImageMagick/libaries/libxml -L/ImageMagick/libaries/openjpeg -L/ImageMagick/libaries/png -L/ImageMagick/libaries/tiff -L/ImageMagick/libaries/webp -L/ImageMagick/libaries/zlib"
-export CPPFLAGS="-I/ImageMagick/libaries/fontconfig -I/ImageMagick/libaries/freetype -I/ImageMagick/libaries/jpeg -I/ImageMagick/libaries/lcms -I/ImageMagick/libaries/libde265 -I/ImageMagick/libaries/libheif -I/ImageMagick/libaries/libraw -I/ImageMagick/libaries/libxml -I/ImageMagick/libaries/openjpeg -I/ImageMagick/libaries/png -I/ImageMagick/libaries/tiff -I/ImageMagick/libaries/webp -I/ImageMagick/libaries/zlib"
+# export LDFLAGS="-L/ImageMagick/libaries/fontconfig -L/ImageMagick/libaries/freetype -L/ImageMagick/libaries/jpeg -L/ImageMagick/libaries/lcms -L/ImageMagick/libaries/libde265 -L/ImageMagick/libaries/libheif -L/ImageMagick/libaries/libraw -L/ImageMagick/libaries/libxml -L/ImageMagick/libaries/openjpeg -L/ImageMagick/libaries/png -L/ImageMagick/libaries/tiff -L/ImageMagick/libaries/webp -L/ImageMagick/libaries/zlib"
+# export CPPFLAGS="-I/ImageMagick/libaries/fontconfig -I/ImageMagick/libaries/freetype -I/ImageMagick/libaries/jpeg -I/ImageMagick/libaries/lcms -I/ImageMagick/libaries/libde265 -I/ImageMagick/libaries/libheif -I/ImageMagick/libaries/libraw -I/ImageMagick/libaries/libxml -I/ImageMagick/libaries/openjpeg -I/ImageMagick/libaries/png -I/ImageMagick/libaries/tiff -I/ImageMagick/libaries/webp -I/ImageMagick/libaries/zlib"
 
-/bin/bash ./libtool --silent --tag=CC --mode=link emcc --bind -s WASM=1 -s BINARYEN_TRAP_MODE=clamp -s ALLOW_MEMORY_GROWTH=1 $CPPFLAGS $LDFLAGS -o utilities/magick.html utilities/magick.o MagickCore/libMagickCore-7.Q16HDRI.la MagickWand/libMagickWand-7.Q16HDRI.la
+/bin/bash ./libtool --silent --tag=CC --mode=link emcc $STRICT_FLAGS -o utilities/magick.html utilities/magick.o MagickCore/libMagickCore-7.Q16HDRI.la MagickWand/libMagickWand-7.Q16HDRI.la
 
 

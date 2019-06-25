@@ -2,14 +2,14 @@
 set -e
 
 export PLATFORM="WASM"
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib"
 export FLAGS="-O3 --bind -s WASM=1 -s ALLOW_MEMORY_GROWTH=1"
 export STRICT_FLAGS="${FLAGS} -Wall"
 export CONFIGURE="emconfigure ./configure"
 export CMAKE_COMMAND="emconfigure cmake"
 export CMAKE_OPTIONS="-D CMAKE_CXX_COMPILER=em++ -D CMAKE_C_COMPILER=emcc"
 export MAKE="emcmake make"
-export CPPFLAGS="-I/usr/local/include"
-export LDFLAGS="-L/usr/local/lib"
 export CONDITIONAL_DISABLE_SHARED="--disable-shared"
 export PKG_PATH="/usr/local/lib/pkgconfig"
 export HEIF_HACK=true
