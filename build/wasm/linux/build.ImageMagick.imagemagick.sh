@@ -1,10 +1,12 @@
 #!/bin/bash
 set -e
 
-export FLAGS="-O3"
+export PLATFORM="WASM"
+export FLAGS="-O3 --bind -s WASM=1 -s ALLOW_MEMORY_GROWTH=1"
 export STRICT_FLAGS="${FLAGS} -Wall"
 export CONFIGURE="emconfigure ./configure"
 export CMAKE_COMMAND="emconfigure cmake"
+export CMAKE_OPTIONS="-D CMAKE_CXX_COMPILER=em++ -D CMAKE_C_COMPILER=emcc"
 export MAKE="emcmake make"
 export CPPFLAGS="-I/usr/local/include"
 export LDFLAGS="-L/usr/local/lib"
@@ -14,6 +16,7 @@ export HEIF_HACK=true
 export LIBXML_OPTIONS=""
 export SIMD_OPTIONS="-DWITH_SIMD=0"
 export SSE_OPTIONS="--disable-sse"
+# export EMMAKEN_CFLAGS="-s ERROR_ON_UNDEFINED_SYMBOLS=0" 
 
 buildImageMagick() {
     local quantum=$1
@@ -34,6 +37,6 @@ buildImageMagick() {
 }
 
 # Build ImageMagick
-cd ../ImageMagick
+cd ./ImageMagick
 autoreconf -fiv
 buildImageMagick "Q8"

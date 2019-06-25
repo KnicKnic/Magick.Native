@@ -1,10 +1,12 @@
 #!/bin/bash
 set -e
 
-export FLAGS="-O3"
+export PLATFORM="WASM"
+export FLAGS="-O3 --bind -s WASM=1 -s ALLOW_MEMORY_GROWTH=1"
 export STRICT_FLAGS="${FLAGS} -Wall"
 export CONFIGURE="emconfigure ./configure"
 export CMAKE_COMMAND="emconfigure cmake"
+export CMAKE_OPTIONS="-D CMAKE_CXX_COMPILER=em++ -D CMAKE_C_COMPILER=emcc"
 export MAKE="emcmake make"
 export CPPFLAGS="-I/usr/local/include"
 export LDFLAGS="-L/usr/local/lib"
